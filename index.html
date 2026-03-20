@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shift Dev — Download</title>
+    <title>Shift — Quality Control App Test</title>
     <link rel="icon" type="image/png" href="assets/primary_icon.png" />
     <style>
       * {
@@ -553,6 +553,99 @@
         }
       }
 
+      /* Warning banner */
+      .warning-banner {
+        background: #fef2f2;
+        border: 1px solid #fca5a5;
+        border-radius: 10px;
+        padding: 16px 20px;
+        margin-bottom: 24px;
+        text-align: center;
+      }
+
+      .warning-banner p {
+        color: #dc2626;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+
+      /* PDF download */
+      .pdf-section {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .btn-pdf {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        background: #fff;
+        color: #dc2626;
+        border: 2px solid #dc2626;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        font-family: inherit;
+        transition: background 0.15s ease, color 0.15s ease;
+      }
+
+      .btn-pdf:hover {
+        background: #dc2626;
+        color: #fff;
+      }
+
+      .btn-pdf svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+      }
+
+      /* Acknowledgment checkboxes */
+      .ack-section {
+        max-width: 420px;
+        margin: 0 auto 32px;
+      }
+
+      .ack-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      .ack-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .ack-item input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        margin-top: 1px;
+        flex-shrink: 0;
+        accent-color: #dc2626;
+        cursor: pointer;
+      }
+
+      .ack-item label {
+        font-size: 14px;
+        color: #444;
+        cursor: pointer;
+        line-height: 1.5;
+      }
+
+      /* Disabled download buttons */
+      .btn.disabled {
+        opacity: 0.35;
+        pointer-events: none;
+        cursor: not-allowed;
+      }
+
       /* Responsive */
       @media (max-width: 480px) {
         .header {
@@ -595,16 +688,39 @@
         <button data-lang="en" class="lang-btn active">EN</button>
         <button data-lang="hi" class="lang-btn">HI</button>
         <button data-lang="tr" class="lang-btn">TR</button>
+        <button data-lang="bg" class="lang-btn">BG</button>
       </div>
       <header class="header">
         <img src="assets/primary_icon.png" alt="Shift" class="app-icon" />
-        <h1 data-i18n="heading">Get early access to Shift (Dev)</h1>
+        <h1 data-i18n="heading">Get early access to Shift (Quality Control App Test)</h1>
       </header>
+
+      <div class="warning-banner">
+        <p data-i18n="warning_no_recording">Please do not use the recording function here, even if you have a headstrap. Just follow the guide below to do the video quality control function.</p>
+      </div>
+
+      <div class="pdf-section">
+        <a id="pdf-download-btn" class="btn-pdf" href="#" target="_blank" data-i18n-href="pdf_url">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15.01l1.41 1.41L11 14.84V19h2v-4.16l1.59 1.59L16 15.01 12.01 11z"/></svg>
+          <span data-i18n="btn_download_pdf">Download Task Guide (PDF)</span>
+        </a>
+      </div>
+
+      <div class="ack-section">
+        <div class="ack-item">
+          <input type="checkbox" id="ack-downloaded" />
+          <label for="ack-downloaded" data-i18n="ack_downloaded">I downloaded the PDF</label>
+        </div>
+        <div class="ack-item">
+          <input type="checkbox" id="ack-read" />
+          <label for="ack-read" data-i18n="ack_read">I read the PDF to understand the scope of the task</label>
+        </div>
+      </div>
 
       <div class="downloads">
         <a
           href="https://testflight.apple.com/join/fUBGdAw7"
-          class="btn btn-ios"
+          class="btn btn-ios disabled"
         >
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path
@@ -615,7 +731,7 @@
         </a>
         <a
           href="https://github.com/MicroAGI-Labs/app-v2-distribution-dev/releases/latest/download/shift-dev.apk"
-          class="btn btn-android"
+          class="btn btn-android disabled"
         >
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path
@@ -745,8 +861,8 @@
       (function () {
         var translations = {
           en: {
-            title: "Shift Dev — Download",
-            heading: "Get early access to Shift (Dev)",
+            title: "Shift — Quality Control App Test",
+            heading: "Get early access to Shift (Quality Control App Test)",
             btn_ios: "Download for iOS",
             btn_android: "Download for Android",
             guide_ios_title: "iOS Installation Guide",
@@ -796,10 +912,15 @@
             success_download_btn: "Download APK",
             success_back: "Back",
             ios_compat_note: "All iPhones with iOS 18.6 or above are supported",
+            warning_no_recording: "Please do not use the recording function here, even if you have a headstrap. Just follow the guide below to do the video quality control function.",
+            btn_download_pdf: "Download Task Guide (PDF)",
+            pdf_url: "Video_QA_Tutorial_ENG.pdf",
+            ack_downloaded: "I downloaded the PDF",
+            ack_read: "I read the PDF to understand the scope of the task",
           },
           hi: {
-            title: "Shift Dev — डाउनलोड",
-            heading: "Shift (Dev) का शुरुआती एक्सेस पाएं",
+            title: "Shift — गुणवत्ता नियंत्रण ऐप परीक्षण",
+            heading: "Shift (गुणवत्ता नियंत्रण ऐप परीक्षण) का शुरुआती एक्सेस पाएं",
             btn_ios: "iOS के लिए डाउनलोड करें",
             btn_android: "Android के लिए डाउनलोड करें",
             guide_ios_title: "iOS इंस्टॉलेशन गाइड",
@@ -851,10 +972,15 @@
             success_back: "वापस",
             ios_compat_note:
               "iOS 18.6 या उससे ऊपर वाले सभी iPhones समर्थित हैं",
+            warning_no_recording: "कृपया यहाँ रिकॉर्डिंग फ़ंक्शन का उपयोग न करें, भले ही आपके पास हेडस्ट्रैप हो। वीडियो गुणवत्ता नियंत्रण फ़ंक्शन करने के लिए बस नीचे दिए गए गाइड का पालन करें।",
+            btn_download_pdf: "कार्य गाइड डाउनलोड करें (PDF)",
+            pdf_url: "Video_QA_Tutorial_HI.pdf",
+            ack_downloaded: "मैंने PDF डाउनलोड किया",
+            ack_read: "मैंने कार्य का दायरा समझने के लिए PDF पढ़ा",
           },
           tr: {
-            title: "Shift Dev — İndir",
-            heading: "Shift (Dev) erken erişim sağlayın",
+            title: "Shift — Kalite Kontrol Uygulama Testi",
+            heading: "Shift (Kalite Kontrol Uygulama Testi) erken erişim sağlayın",
             btn_ios: "iOS için indir",
             btn_android: "Android için indir",
             guide_ios_title: "iOS Kurulum Rehberi",
@@ -907,6 +1033,76 @@
             success_back: "Geri",
             ios_compat_note:
               "iOS 18.6 veya üzeri tüm iPhone'lar desteklenmektedir",
+            warning_no_recording: "Lütfen burada kayıt fonksiyonunu kullanmayın, bir baş bandınız olsa bile. Video kalite kontrol fonksiyonunu gerçekleştirmek için aşağıdaki kılavuzu takip edin.",
+            btn_download_pdf: "Görev Kılavuzunu İndir (PDF)",
+            pdf_url: "Video_QA_Tutorial_TR.pdf",
+            ack_downloaded: "PDF'yi indirdim",
+            ack_read: "Görevin kapsamını anlamak için PDF'yi okudum",
+          },
+          bg: {
+            title: "Shift — Тест за контрол на качеството",
+            heading: "Получете ранен достъп до Shift (Тест за контрол на качеството)",
+            btn_ios: "Изтегляне за iOS",
+            btn_android: "Изтегляне за Android",
+            guide_ios_title: "Ръководство за инсталиране на iOS",
+            guide_ios_1:
+              'Натиснете бутона „Изтегляне за iOS" на вашия iPhone',
+            guide_ios_2:
+              "Ако TestFlight не е инсталиран, ще бъдете пренасочени към App Store — инсталирайте го първо",
+            guide_ios_3:
+              "Върнете се на тази страница и натиснете бутона за изтегляне отново",
+            guide_ios_4:
+              'Натиснете „Accept", за да се присъедините към бета тестовата програма',
+            guide_ios_5:
+              'Натиснете „Install", за да изтеглите Shift',
+            guide_android_title: "Ръководство за инсталиране на Android",
+            guide_android_1:
+              'Натиснете бутона „Изтегляне за Android", за да изтеглите APK файла',
+            guide_android_2:
+              "Отворете изтегления файл от известията или файловия мениджър",
+            guide_android_3:
+              'Ако бъдете подканени, разрешете инсталирането от непознати източници: Отидете в Settings > Security (или Apps & notifications) и активирайте „Install unknown apps" за вашия браузър',
+            guide_android_4:
+              'Натиснете „Install" и изчакайте инсталирането да завърши',
+            guide_android_5: "Отворете Shift от чекмеджето с приложения",
+            btn_compatible_devices: "Съвместими Android устройства",
+            modal_title_compat: "Съвместими Android устройства",
+            modal_title_select: "Изберете вашия телефон",
+            search_placeholder: "Търсене на устройства...",
+            badge_compatible: "Вероятно съвместимо",
+            badge_not_compatible: "Не се поддържа",
+            badge_maybe: "Необходима е допълнителна информация",
+            no_results: "Не са намерени устройства",
+            help_find_model: "Как да разбера модела на телефона си?",
+            help_step_1: "Отворете Настройки на телефона си",
+            help_step_2:
+              '„За телефона" или „За устройството"',
+            help_step_3:
+              'Потърсете „Име на модела" или „Номер на модела"',
+            help_step_4: "Сравнете го със списъка по-горе",
+            change_device: "Промяна",
+            success_compatible_title: "Вероятно съвместимо",
+            success_compatible_msg:
+              "Вашето устройство вероятно е съвместимо! Ще потвърдим това в приложението.",
+            success_not_compatible_title: "Не се поддържа",
+            success_not_compatible_msg:
+              "Вашето устройство не се поддържа",
+            success_maybe_title: "Необходима е допълнителна информация",
+            success_maybe_msg:
+              "Ще потвърдим съвместимостта на устройството в приложението.",
+            success_unlisted_title: "Устройството не е в списъка",
+            success_unlisted_msg:
+              "Ще проверим съвместимостта на устройството в приложението.",
+            not_listed_btn: "Моето устройство не е в списъка",
+            success_download_btn: "Изтегляне на APK",
+            success_back: "Назад",
+            ios_compat_note:
+              "Всички iPhone с iOS 18.6 или по-нова версия се поддържат",
+            warning_no_recording: "Моля, не използвайте функцията за запис тук, дори ако имате лента за глава. Просто следвайте ръководството по-долу, за да извършите функцията за контрол на качеството на видеото.",
+            btn_download_pdf: "Изтеглете ръководство за задачата (PDF)",
+            pdf_url: "Video_QA_Tutorial_BG.pdf",
+            ack_downloaded: "Изтеглих PDF файла",
+            ack_read: "Прочетох PDF файла, за да разбера обхвата на задачата",
           },
         };
 
@@ -926,6 +1122,13 @@
             .forEach(function (el) {
               var key = el.getAttribute("data-i18n-placeholder");
               if (t[key] !== undefined) el.placeholder = t[key];
+            });
+
+          document
+            .querySelectorAll("[data-i18n-href]")
+            .forEach(function (el) {
+              var key = el.getAttribute("data-i18n-href");
+              if (t[key] !== undefined) el.href = t[key];
             });
 
           document.documentElement.lang = lang;
@@ -959,8 +1162,30 @@
           var navLang = (navigator.language || "").toLowerCase();
           if (navLang.startsWith("tr")) applyLanguage("tr");
           else if (navLang.startsWith("hi")) applyLanguage("hi");
+          else if (navLang.startsWith("bg")) applyLanguage("bg");
           else applyLanguage("en");
         }
+      })();
+
+      // Checkbox gating for download buttons
+      (function () {
+        var ackDownloaded = document.getElementById("ack-downloaded");
+        var ackRead = document.getElementById("ack-read");
+        var iosBtn = document.querySelector(".btn-ios");
+        var androidBtn = document.querySelector(".btn-android");
+
+        function updateButtons() {
+          if (ackDownloaded.checked && ackRead.checked) {
+            iosBtn.classList.remove("disabled");
+            androidBtn.classList.remove("disabled");
+          } else {
+            iosBtn.classList.add("disabled");
+            androidBtn.classList.add("disabled");
+          }
+        }
+
+        ackDownloaded.addEventListener("change", updateButtons);
+        ackRead.addEventListener("change", updateButtons);
       })();
 
       // Compatible Devices feature
