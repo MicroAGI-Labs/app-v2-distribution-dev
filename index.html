@@ -646,6 +646,108 @@
         cursor: not-allowed;
       }
 
+      /* Critical info popup */
+      .critical-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 2000;
+        display: none;
+        animation: fadeIn 0.2s ease;
+      }
+
+      .critical-overlay.open {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .critical-popup {
+        background: #fff;
+        width: 100%;
+        max-width: 520px;
+        max-height: 80vh;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        animation: slideUp 0.3s ease;
+        overflow: hidden;
+      }
+
+      .critical-header {
+        padding: 20px 24px 16px;
+        border-bottom: 1px solid #fca5a5;
+        background: #fef2f2;
+        flex-shrink: 0;
+        border-radius: 16px 16px 0 0;
+      }
+
+      .critical-header h2 {
+        font-size: 17px;
+        font-weight: 700;
+        color: #dc2626;
+        text-align: center;
+      }
+
+      .critical-body {
+        padding: 20px 24px;
+        overflow-y: auto;
+        flex: 1;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .critical-rule {
+        margin-bottom: 20px;
+      }
+
+      .critical-rule:last-child {
+        margin-bottom: 0;
+      }
+
+      .critical-rule h3 {
+        font-size: 13px;
+        font-weight: 700;
+        color: #dc2626;
+        margin-bottom: 6px;
+        letter-spacing: 0.02em;
+      }
+
+      .critical-rule p {
+        font-size: 14px;
+        color: #444;
+        line-height: 1.6;
+      }
+
+      .critical-footer {
+        padding: 16px 24px 20px;
+        border-top: 1px solid #eee;
+        flex-shrink: 0;
+        text-align: center;
+      }
+
+      .critical-confirm-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 40px;
+        background: #dc2626;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+        transition: opacity 0.15s ease;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .critical-confirm-btn:hover {
+        opacity: 0.85;
+      }
+
       /* Responsive */
       @media (max-width: 480px) {
         .header {
@@ -689,6 +791,7 @@
         <button data-lang="hi" class="lang-btn">HI</button>
         <button data-lang="tr" class="lang-btn">TR</button>
         <button data-lang="bg" class="lang-btn">BG</button>
+        <button data-lang="ru" class="lang-btn">RU</button>
       </div>
       <header class="header">
         <img src="assets/primary_icon.png" alt="Shift" class="app-icon" />
@@ -857,6 +960,35 @@
       </div>
     </div>
 
+    <div class="critical-overlay" id="critical-overlay">
+      <div class="critical-popup">
+        <div class="critical-header">
+          <h2 data-i18n="critical_title">Critical Rules — Read Before Proceeding</h2>
+        </div>
+        <div class="critical-body">
+          <div class="critical-rule">
+            <h3 data-i18n="critical_fake_title">FAKE / STAGED TASKS — BIGGEST PROBLEM</h3>
+            <p data-i18n="critical_fake_text">Some people fake tasks to get paid. Examples: wiping a plate that is already clean for two minutes straight, transferring water between bottles back and forth for no reason, carrying the same item from one spot to another repeatedly, opening and closing drawers with no purpose. If the task looks pointless or made up, REJECT it.</p>
+          </div>
+          <div class="critical-rule">
+            <h3 data-i18n="critical_screen_title">SCREEN RECORDING SCAM</h3>
+            <p data-i18n="critical_screen_text">Some people point the camera at a TV, computer, or phone screen instead of doing a real task. If you see another monitor or screen visible anywhere in the video, the person may be recording someone else's footage off a display. This is a common scam. REJECT immediately.</p>
+          </div>
+          <div class="critical-rule">
+            <h3 data-i18n="critical_task_title">NOT A ROBOT-WORTHY TASK</h3>
+            <p data-i18n="critical_task_text">The video must show a real task with economic or household value: cooking, cleaning dishes, repairing, organizing, sorting. REJECT: reading, writing notes, drinking coffee, scrolling phone, watching TV.</p>
+          </div>
+          <div class="critical-rule">
+            <h3 data-i18n="critical_doubt_title">WHEN IN DOUBT, TAP NO</h3>
+            <p data-i18n="critical_doubt_text">It is always better to reject a questionable video than to approve a bad one.</p>
+          </div>
+        </div>
+        <div class="critical-footer">
+          <button class="critical-confirm-btn" id="critical-confirm-btn" data-i18n="critical_btn">I understand</button>
+        </div>
+      </div>
+    </div>
+
     <script>
       (function () {
         var translations = {
@@ -914,9 +1046,19 @@
             ios_compat_note: "All iPhones with iOS 18.6 or above are supported",
             warning_no_recording: "Please do not use the recording function here, even if you have a headstrap. Just follow the guide below to do the video quality control function.",
             btn_download_pdf: "Download Task Guide (PDF)",
-            pdf_url: "Video_QA_Tutorial_ENG.pdf",
+            pdf_url: "Video_QA_Tutorial_EN_LaTeX.pdf",
             ack_downloaded: "I downloaded the PDF",
             ack_read: "I read the PDF to understand the scope of the task",
+            critical_title: "Critical Rules — Read Before Proceeding",
+            critical_fake_title: "FAKE / STAGED TASKS — BIGGEST PROBLEM",
+            critical_fake_text: "Some people fake tasks to get paid. Examples: wiping a plate that is already clean for two minutes straight, transferring water between bottles back and forth for no reason, carrying the same item from one spot to another repeatedly, opening and closing drawers with no purpose. If the task looks pointless or made up, REJECT it.",
+            critical_screen_title: "SCREEN RECORDING SCAM",
+            critical_screen_text: "Some people point the camera at a TV, computer, or phone screen instead of doing a real task. If you see another monitor or screen visible anywhere in the video, the person may be recording someone else's footage off a display. This is a common scam. REJECT immediately.",
+            critical_task_title: "NOT A ROBOT-WORTHY TASK",
+            critical_task_text: "The video must show a real task with economic or household value: cooking, cleaning dishes, repairing, organizing, sorting. REJECT: reading, writing notes, drinking coffee, scrolling phone, watching TV.",
+            critical_doubt_title: "WHEN IN DOUBT, TAP NO",
+            critical_doubt_text: "It is always better to reject a questionable video than to approve a bad one.",
+            critical_btn: "I understand",
           },
           hi: {
             title: "Shift — गुणवत्ता नियंत्रण ऐप परीक्षण",
@@ -974,9 +1116,19 @@
               "iOS 18.6 या उससे ऊपर वाले सभी iPhones समर्थित हैं",
             warning_no_recording: "कृपया यहाँ रिकॉर्डिंग फ़ंक्शन का उपयोग न करें, भले ही आपके पास हेडस्ट्रैप हो। वीडियो गुणवत्ता नियंत्रण फ़ंक्शन करने के लिए बस नीचे दिए गए गाइड का पालन करें।",
             btn_download_pdf: "कार्य गाइड डाउनलोड करें (PDF)",
-            pdf_url: "Video_QA_Tutorial_HI.pdf",
+            pdf_url: "Video_QA_Tutorial_HI_LaTeX.pdf",
             ack_downloaded: "मैंने PDF डाउनलोड किया",
             ack_read: "मैंने कार्य का दायरा समझने के लिए PDF पढ़ा",
+            critical_title: "महत्वपूर्ण नियम — आगे बढ़ने से पहले पढ़ें",
+            critical_fake_title: "नकली / मंचित कार्य — सबसे बड़ी समस्या",
+            critical_fake_text: "कुछ लोग पैसे पाने के लिए कार्यों की नकल करते हैं। उदाहरण: पहले से साफ प्लेट को दो मिनट तक पोंछना, बिना किसी कारण के बोतलों के बीच पानी आगे-पीछे करना, एक ही वस्तु को बार-बार एक जगह से दूसरी जगह ले जाना, बिना किसी उद्देश्य के दराज खोलना और बंद करना। अगर कार्य बेमतलब या बनावटी लगता है, तो उसे अस्वीकार करें।",
+            critical_screen_title: "स्क्रीन रिकॉर्डिंग धोखाधड़ी",
+            critical_screen_text: "कुछ लोग वास्तविक कार्य करने के बजाय कैमरा TV, कंप्यूटर, या फोन स्क्रीन की ओर करते हैं। अगर वीडियो में कहीं भी कोई अन्य मॉनिटर या स्क्रीन दिखाई दे, तो वह व्यक्ति किसी और की फुटेज डिस्प्ले से रिकॉर्ड कर रहा हो सकता है। यह एक आम धोखाधड़ी है। तुरंत अस्वीकार करें।",
+            critical_task_title: "रोबोट-योग्य कार्य नहीं",
+            critical_task_text: "वीडियो में आर्थिक या घरेलू मूल्य वाला वास्तविक कार्य दिखाई देना चाहिए: खाना बनाना, बर्तन धोना, मरम्मत करना, व्यवस्थित करना, छांटना। अस्वीकार करें: पढ़ना, नोट्स लिखना, कॉफी पीना, फोन स्क्रॉल करना, TV देखना।",
+            critical_doubt_title: "संदेह होने पर, नहीं दबाएं",
+            critical_doubt_text: "एक संदिग्ध वीडियो को अस्वीकार करना हमेशा एक खराब वीडियो को स्वीकार करने से बेहतर है।",
+            critical_btn: "मैं समझता/समझती हूँ",
           },
           tr: {
             title: "Shift — Kalite Kontrol Uygulama Testi",
@@ -1035,9 +1187,19 @@
               "iOS 18.6 veya üzeri tüm iPhone'lar desteklenmektedir",
             warning_no_recording: "Lütfen burada kayıt fonksiyonunu kullanmayın, bir baş bandınız olsa bile. Video kalite kontrol fonksiyonunu gerçekleştirmek için aşağıdaki kılavuzu takip edin.",
             btn_download_pdf: "Görev Kılavuzunu İndir (PDF)",
-            pdf_url: "Video_QA_Tutorial_TR.pdf",
+            pdf_url: "Video_QA_Tutorial_TR_LaTeX.pdf",
             ack_downloaded: "PDF'yi indirdim",
             ack_read: "Görevin kapsamını anlamak için PDF'yi okudum",
+            critical_title: "Kritik Kurallar — Devam Etmeden Önce Okuyun",
+            critical_fake_title: "SAHTE / HAZIRLANMIŞ GÖREVLER — EN BÜYÜK SORUN",
+            critical_fake_text: "Bazı insanlar para kazanmak için görevleri taklit eder. Örnekler: zaten temiz bir tabağı iki dakika düz silme, şişeler arasında suyu sebepsiz yere geri çevirme, aynı öğeyi bir yerden diğerine tekrar tekrar taşıma, değersiz şekilde çekmeceleri açıp kapatma. Görev anlamsız veya yapay görünüyorsa, REDDEDİN.",
+            critical_screen_title: "EKRAN KAYDI DOLANDIRICILIĞI",
+            critical_screen_text: "Bazı insanlar gerçek bir görev yapmak yerine kamerayı TV, bilgisayar veya telefon ekranına yöneltir. Videonun herhangi bir yerinde başka bir monitör veya ekran görürseniz, kişi başka birinin görüntüsünü ekrandan kaydediyor olabilir. Bu yaygın bir dolandırıcılıktır. DERHAL REDDEDİN.",
+            critical_task_title: "ROBOT İÇİN UYGUN OLMAYAN GÖREV",
+            critical_task_text: "Video ekonomik veya ev değeri olan gerçek bir görev göstermelidir: yemek yapma, bulaşık yıkama, onarım, organize etme, sıralama. REDDEDİN: kitap okuma, not yazma, kahve içme, telefon kaydırma, TV izleme.",
+            critical_doubt_title: "ŞÜPHE HALİNDE, HAYIR'A DOKUNUN",
+            critical_doubt_text: "Şüpheli bir videoyu reddetmek her zaman kötü bir videoyu onaylamaktan daha iyidir.",
+            critical_btn: "Anlıyorum",
           },
           bg: {
             title: "Shift — Тест за контрол на качеството",
@@ -1100,9 +1262,91 @@
               "Всички iPhone с iOS 18.6 или по-нова версия се поддържат",
             warning_no_recording: "Моля, не използвайте функцията за запис тук, дори ако имате лента за глава. Просто следвайте ръководството по-долу, за да извършите функцията за контрол на качеството на видеото.",
             btn_download_pdf: "Изтеглете ръководство за задачата (PDF)",
-            pdf_url: "Video_QA_Tutorial_BG.pdf",
+            pdf_url: "Video_QA_Tutorial_BG_LaTeX.pdf",
             ack_downloaded: "Изтеглих PDF файла",
             ack_read: "Прочетох PDF файла, за да разбера обхвата на задачата",
+            critical_title: "Критични правила — Прочетете преди да продължите",
+            critical_fake_title: "ФАЛШИВИ/ПОСТАНОВЪЧНИ ЗАДАЧИ — НАЙ-ГОЛЕМИЯТ ПРОБЛЕМ",
+            critical_fake_text: "Някои хора фалшифицират задачи, за да получат пари. Примери: изтриване на чиста чиния две минути подред, пренасяне на вода между бутилки напред-назад без причина, пренасяне на един и същ предмет многократно, отваряне и затваряне на чекмеджета без цел. Ако задачата изглежда безцелна или измислена, ОТХВЪРЛЕТЕ я.",
+            critical_screen_title: "ИЗМАМА СЪС ЗАПИС НА ЕКРАН",
+            critical_screen_text: "Някои хора насочват камерата към телевизор, компютър или телефон вместо да правят реална задача. Ако видите друг монитор или екран видим във видеото, човекът може да записва чужд видеоклип от дисплей. Това е честа измама. ОТХВЪРЛЕТЕ ВЕДНАГА.",
+            critical_task_title: "НЕ Е ЗАДАЧА, ДОСТОЙНА ЗА РОБОТ",
+            critical_task_text: "Видеото трябва да показва реална задача с икономическа или домакинска стойност: готвене, измиване на съдове, ремонт, организиране, сортиране. ОТХВЪРЛЕТЕ: четене, писане на бележки, пиене на кафе, превъртане на телефон, гледане на ТВ.",
+            critical_doubt_title: "ПРИ СЪМНЕНИЕ, НАТИСНЕТЕ НЕ",
+            critical_doubt_text: "Винаги е по-добре да отхвърлите съмнително видео, отколкото да одобрите лошо видео.",
+            critical_btn: "Разбирам",
+          },
+          ru: {
+            title: "Shift — Тест приложения контроля качества",
+            heading: "Получите ранний доступ к Shift (Тест приложения контроля качества)",
+            btn_ios: "Скачать для iOS",
+            btn_android: "Скачать для Android",
+            guide_ios_title: "Руководство по установке iOS",
+            guide_ios_1:
+              'Нажмите кнопку «Скачать для iOS» на вашем iPhone',
+            guide_ios_2:
+              "Если TestFlight не установлен, вы будете перенаправлены в App Store — установите его сначала",
+            guide_ios_3:
+              "Вернитесь на эту страницу и нажмите кнопку загрузки снова",
+            guide_ios_4:
+              'Нажмите «Accept», чтобы присоединиться к программе бета-тестирования',
+            guide_ios_5:
+              'Нажмите «Install», чтобы скачать Shift',
+            guide_android_title: "Руководство по установке Android",
+            guide_android_1:
+              'Нажмите кнопку «Скачать для Android», чтобы скачать APK-файл',
+            guide_android_2:
+              "Откройте загруженный файл из уведомлений или файлового менеджера",
+            guide_android_3:
+              'Если будет запрошено, разрешите установку из неизвестных источников: перейдите в Settings > Security (или Apps & notifications) и включите «Install unknown apps» для вашего браузера',
+            guide_android_4:
+              'Нажмите «Install» и дождитесь завершения установки',
+            guide_android_5: "Откройте Shift из меню приложений",
+            btn_compatible_devices: "Совместимые устройства Android",
+            modal_title_compat: "Совместимые устройства Android",
+            modal_title_select: "Выберите ваш телефон",
+            search_placeholder: "Поиск устройств...",
+            badge_compatible: "Вероятно совместимо",
+            badge_not_compatible: "Не поддерживается",
+            badge_maybe: "Требуется дополнительная информация",
+            no_results: "Устройства не найдены",
+            help_find_model: "Как узнать модель моего телефона?",
+            help_step_1: "Откройте Настройки на вашем телефоне",
+            help_step_2: 'Нажмите «О телефоне» или «Об устройстве»',
+            help_step_3: 'Найдите «Название модели» или «Номер модели»',
+            help_step_4: "Сопоставьте со списком выше",
+            change_device: "Изменить",
+            success_compatible_title: "Вероятно совместимо",
+            success_compatible_msg:
+              "Ваше устройство, вероятно, совместимо! Мы подтвердим это в приложении.",
+            success_not_compatible_title: "Не поддерживается",
+            success_not_compatible_msg: "Ваше устройство не поддерживается",
+            success_maybe_title: "Требуется дополнительная информация",
+            success_maybe_msg:
+              "Мы подтвердим совместимость устройства в приложении.",
+            success_unlisted_title: "Устройство не в списке",
+            success_unlisted_msg:
+              "Мы проверим совместимость устройства в приложении.",
+            not_listed_btn: "Моего устройства нет в списке",
+            success_download_btn: "Скачать APK",
+            success_back: "Назад",
+            ios_compat_note:
+              "Все iPhone с iOS 18.6 и выше поддерживаются",
+            warning_no_recording: "Пожалуйста, не используйте функцию записи здесь, даже если у вас есть крепление на голову. Просто следуйте руководству ниже, чтобы выполнить функцию контроля качества видео.",
+            btn_download_pdf: "Скачать руководство по задаче (PDF)",
+            pdf_url: "Video_QA_Tutorial_RU_LaTeX.pdf",
+            ack_downloaded: "Я скачал(-а) PDF",
+            ack_read: "Я прочитал(-а) PDF, чтобы понять объём задачи",
+            critical_title: "Критические правила — Прочитайте перед продолжением",
+            critical_fake_title: "ПОДДЕЛЬНЫЕ/ПОСТАНОВОЧНЫЕ ЗАДАЧИ — САМАЯ БОЛЬШАЯ ПРОБЛЕМА",
+            critical_fake_text: "Некоторые люди подделывают задачи, чтобы получить деньги. Примеры: протирание уже чистой тарелки две минуты подряд, переливание воды между бутылками туда-сюда без причины, перенос одного и того же предмета повторяющимся образом, открытие и закрытие ящиков без цели. Если задача выглядит бессмысленной или придуманной, ОТКЛОНИТЕ её.",
+            critical_screen_title: "МОШЕННИЧЕСТВО С ЗАПИСЬЮ ЭКРАНА",
+            critical_screen_text: "Некоторые люди наводят камеру на телевизор, компьютер или телефон вместо выполнения реальной задачи. Если вы видите другой монитор или экран в видео, человек может записывать чужие кадры с дисплея. Это частая афера. ОТКЛОНЯЙТЕ НЕМЕДЛЕННО.",
+            critical_task_title: "НЕ ПОДХОДИТ ДЛЯ РОБОТА",
+            critical_task_text: "Видео должно показывать реальную задачу с экономической или домашней ценностью: готовка, мытьё посуды, ремонт, организация, сортировка. ОТКЛОНИТЕ: чтение, написание заметок, питьё кофе, листание телефона, просмотр телевизора.",
+            critical_doubt_title: "ПРИ СОМНЕНИИ — НАЖМИТЕ НЕТ",
+            critical_doubt_text: "Всегда лучше отклонить сомнительное видео, чем одобрить плохое.",
+            critical_btn: "Я понимаю",
           },
         };
 
@@ -1163,16 +1407,21 @@
           if (navLang.startsWith("tr")) applyLanguage("tr");
           else if (navLang.startsWith("hi")) applyLanguage("hi");
           else if (navLang.startsWith("bg")) applyLanguage("bg");
+          else if (navLang.startsWith("ru")) applyLanguage("ru");
           else applyLanguage("en");
         }
       })();
 
-      // Checkbox gating for download buttons
+      // Checkbox gating with critical info popup
       (function () {
         var ackDownloaded = document.getElementById("ack-downloaded");
         var ackRead = document.getElementById("ack-read");
         var iosBtn = document.querySelector(".btn-ios");
         var androidBtn = document.querySelector(".btn-android");
+        var criticalOverlay = document.getElementById("critical-overlay");
+        var criticalConfirmBtn = document.getElementById("critical-confirm-btn");
+        var criticalSeen = false;
+        var pendingCheckbox = null;
 
         function updateButtons() {
           if (ackDownloaded.checked && ackRead.checked) {
@@ -1184,8 +1433,36 @@
           }
         }
 
-        ackDownloaded.addEventListener("change", updateButtons);
-        ackRead.addEventListener("change", updateButtons);
+        function showCriticalPopup(checkbox) {
+          pendingCheckbox = checkbox;
+          checkbox.checked = false;
+          criticalOverlay.classList.add("open");
+          document.body.style.overflow = "hidden";
+        }
+
+        function closeCriticalPopup() {
+          criticalOverlay.classList.remove("open");
+          document.body.style.overflow = "";
+          if (pendingCheckbox) {
+            pendingCheckbox.checked = true;
+            pendingCheckbox = null;
+            updateButtons();
+          }
+          criticalSeen = true;
+        }
+
+        criticalConfirmBtn.addEventListener("click", closeCriticalPopup);
+
+        function onCheckboxChange(e) {
+          if (!criticalSeen && e.target.checked) {
+            showCriticalPopup(e.target);
+            return;
+          }
+          updateButtons();
+        }
+
+        ackDownloaded.addEventListener("change", onCheckboxChange);
+        ackRead.addEventListener("change", onCheckboxChange);
       })();
 
       // Compatible Devices feature
